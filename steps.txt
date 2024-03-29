@@ -1,0 +1,56 @@
+https://www.npmjs.com/package/@vitalets/google-translate-api
+npm i @vitalets/google-translate-api
+
+
+
+
+https://www.npmjs.com/package/translate-google-api
+npm i translate-google-api
+
+
+
+https://callstack.github.io/react-native-paper/docs/guides/getting-started#installation
+npm install react-native-paper
+npm install react-native-safe-area-context
+npm install react-native-vector-icons
+
+
+#setup vector icons
+https://www.npmjs.com/package/react-native-vector-icons
+Edit android/app/build.gradle
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+
+
+#add in babel.config.js
+module.exports = {
+  presets: ['module:@react-native/babel-preset'],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
+};
+
+
+
+modify index.js
+
+
+
+https://reactnavigation.org/docs/getting-started
+npm install @react-navigation/native
+npm install react-native-screens react-native-safe-area-context
+npm install @react-navigation/native-stack
+
+
+
+npm start
+npx react-native run-android
+
+
+
+#Icons list
+https://callstack.github.io/react-native-paper/docs/guides/icons/#1-an-icon-name
+
+#color pallate
+https://colorhunt.co/palettes/random
