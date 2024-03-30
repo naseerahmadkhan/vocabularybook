@@ -16,6 +16,9 @@ import gTranslate from 'translate-google-api';
 import { translate } from '@vitalets/google-translate-api';
 
 import {ScrollView} from 'react-native';
+import Tts from 'react-native-tts';
+
+
 
 export default function TranslationScreen() {
   const [text, setText] = React.useState('');
@@ -60,6 +63,26 @@ export default function TranslationScreen() {
     }
   };
 
+  const readAloud = () =>{
+    try{
+
+      Tts.getInitStatus().then(() => {
+        Tts.speak(text, {
+          androidParams: {
+            KEY_PARAM_PAN: 0,
+            KEY_PARAM_VOLUME: 1,
+            KEY_PARAM_STREAM: 'STREAM_MUSIC',
+          },
+        });
+      });
+
+      
+    }catch(e){
+      console.log(e)
+    }
+
+  }
+
   return (
     <ScrollView
       style={{
@@ -95,7 +118,7 @@ export default function TranslationScreen() {
 
         <TouchableRipple
           style={{justifyContent: 'center', alignItems: 'center'}}
-          onPress={() => clearText()}
+          onPress={() => readAloud()}
           rippleColor="rgba(0, 0, 0, .32)">
           <Icon source="volume-high" color={MD3Colors.secondary50} size={50} />
         </TouchableRipple>
