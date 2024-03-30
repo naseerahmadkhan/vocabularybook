@@ -17,10 +17,15 @@ import { translate } from '@vitalets/google-translate-api';
 
 import {ScrollView} from 'react-native';
 import Tts from 'react-native-tts';
-
+import { LogBox } from 'react-native';
 
 
 export default function TranslationScreen() {
+
+LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
+
+
   const [text, setText] = React.useState('');
   const [translatedFromGoogle, setTranslatedFromGoogle] = React.useState('');
   const [translatedFromGoogleV, setTranslatedFromGoogleV] = React.useState('');
@@ -30,6 +35,7 @@ export default function TranslationScreen() {
   const clearText = () => {
     setText('');
     setTranslatedFromGoogle('');
+    setTranslatedFromGoogleV('');
   };
 
   const doTranslate = () =>{
@@ -65,7 +71,6 @@ export default function TranslationScreen() {
 
   const readAloud = () =>{
     try{
-
       Tts.getInitStatus().then(() => {
         Tts.speak(text, {
           androidParams: {
@@ -76,9 +81,8 @@ export default function TranslationScreen() {
         });
       });
 
-      
     }catch(e){
-      console.log(e)
+      alert(e)
     }
 
   }
