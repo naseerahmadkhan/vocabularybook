@@ -15,14 +15,9 @@ import {
 import translate from 'translate-google-api';
 import { ScrollView } from 'react-native';
 import TranslationScreen from './TranslationScreen';
+import VocabList from './VocabList';
 
-const MusicRoute = () => <Text>Music</Text>;
 
-const AlbumsRoute = () => <Text>Albums</Text>;
-
-const RecentsRoute = () => <Text>Recents</Text>;
-
-const NotificationsRoute = () => <Text>Notifications</Text>;
 
 
 export default function Home() {
@@ -31,16 +26,14 @@ export default function Home() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'search', title: 'Search', focusedIcon: 'file-find', unfocusedIcon: 'file-find-outline'},
-    { key: 'albums', title: 'Albums', focusedIcon: 'album' },
-    { key: 'recents', title: 'Recents', focusedIcon: 'history' },
-    { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
+    { key: 'list', title: 'Vocab List', focusedIcon: 'view-list', unfocusedIcon: 'format-list-bulleted-square' },
+
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     search: TranslationScreen,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
+    list: VocabList,
+
   });
 
 

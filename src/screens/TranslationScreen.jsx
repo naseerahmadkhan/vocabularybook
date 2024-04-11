@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TextInput,
   Button,
@@ -18,7 +18,9 @@ import { translate } from '@vitalets/google-translate-api';
 import {ScrollView} from 'react-native';
 import Tts from 'react-native-tts';
 import { LogBox } from 'react-native';
+import AlertBox from '../components/AlertBox'
 
+import useStore from '../store/store';
 
 export default function TranslationScreen() {
 
@@ -31,6 +33,12 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
   const [translatedFromGoogleV, setTranslatedFromGoogleV] = React.useState('');
 
   const [wordDefinition, setWordDefinition] = React.useState('');
+
+  const [showAlert,setShowAlert] = React.useState(false)
+
+
+  useEffect(()=>{
+  })
 
   const clearText = () => {
     setText('');
@@ -87,6 +95,15 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   }
 
+  if(showAlert){
+    const vocabObject = {
+      word:text,
+      urdu1:translatedFromGoogle,
+      urdu2:translatedFromGoogleV
+    }
+    return <AlertBox data={vocabObject} hide={()=>setShowAlert(false)}/>
+  }
+
   return (
     <ScrollView
       style={{
@@ -95,13 +112,16 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         paddingTop: 10,
         flexDirection: 'column',
       }}>
+        
       <View style={{flexDirection: 'row'}}>
+        
         <View style={{flex: 1}}>
           <TextInput
             label="Text"
             style={{marginBottom: 5}}
             value={text}
             onChangeText={text => setText(text)}
+            onBlur={doTranslate}
           />
         </View>
       </View>
@@ -149,7 +169,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.14, justifyContent: 'center'}}>
           <TouchableRipple
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => console.log()}
+            onPress={() => setShowAlert(true)}  //first copy button
             rippleColor="rgba(0, 0, 0, .32)">
             <Icon source="content-copy" color={MD3Colors.neutral10} size={30} />
           </TouchableRipple>
@@ -170,7 +190,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.14, justifyContent: 'center'}}>
           <TouchableRipple
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => console.log()}
+            onPress={() => console.log()}     //2nd copy button
             rippleColor="rgba(0, 0, 0, .32)">
             <Icon source="content-copy" color={MD3Colors.neutral10} size={30} />
           </TouchableRipple>
