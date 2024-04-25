@@ -54,3 +54,10 @@ https://callstack.github.io/react-native-paper/docs/guides/icons/#1-an-icon-name
 
 #color pallate
 https://colorhunt.co/palettes/random
+
+
+
+#
+add firebase
+download google-services.json 
+npm install firebase
