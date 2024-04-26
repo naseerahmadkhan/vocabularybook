@@ -12,7 +12,7 @@ export default function VocabList() {
     useEffect(()=>{
       console.log('vocab',items)
       setFilteredData(items)
-    },[])
+    },[items])
     
     //handle search that matches text from data array and return filtered data
     const handleSearch = (query) =>{
@@ -26,7 +26,7 @@ export default function VocabList() {
     const renderItem = ({ item,index }) => (
         <TouchableRipple
     onPress={() => console.log('Pressed',index)}
-    onLongPress={()=>console.log('long')}
+    onLongPress={()=>alert(`${items[index]?.word || ''}  ${items[index]?.urdu1 || ''} ${items[index]?.urdu2 || ''} ${items[index]?.meaning || ''}`)}
     rippleColor="rgba(0, 0, 0, .32)"
   >
    <View >

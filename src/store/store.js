@@ -7,15 +7,7 @@ const useStore = create((set) => ({
   addItem: (item) =>
   set((state) => {
     const newItems = [...state.items, item];
-    try{
-      addRecordInDB(newItems);
-
-    }catch(e){
-      alert(JSON.stringify(e))
-    }finally{
-
-      return { items: newItems };
-    }
+    return { items: newItems };
   }),
   removeItem: (index) =>
     set((state) => ({

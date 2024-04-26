@@ -13,22 +13,27 @@ const AlertBox = (props) => {
   const [urdu2,setUrdu2] = useState(data.urdu2)
   const [explanation,setExplanation] = useState('')
   const { items,addItem } = useStore();
+  const [disableBtn,setDisableBtn] = useState(false)
   
 
 
-  const add = () =>{
+  const add = async() =>{
+    setDisableBtn(true)
     let obj = {}
     if((word.length > 0) && (urdu1 == urdu2)){
       obj = {word:word,urdu1:urdu1,explanation:explanation}
 
       addItem(obj)
+      await addRecordInDB(items)
     }else if((word.length > 0) && (urdu1 != urdu2)){
       obj = {word:word,urdu1:urdu1,urdu2:urdu2,explanation:explanation}
       addItem(obj)
+      await addRecordInDB(items)
 
     }
     obj = {}
     props.hide()
+    setDisableBtn(false)
     
   }
 
@@ -67,8 +72,8 @@ const AlertBox = (props) => {
             </Dialog.Content>
             </ScrollView>
             <Dialog.Actions>
-              <Button onPress={add}>ADD</Button>
-              <Button onPress={hideDialog}>Cancel</Button>
+              <Button disabled={disableBtn} onPress={add}>ADD</Button>
+              <Button disabled={disableBtn} onPress={hideDialog}>Cancel</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
