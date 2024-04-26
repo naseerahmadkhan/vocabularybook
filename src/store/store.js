@@ -1,9 +1,22 @@
 // store.js
 import {create }from 'zustand';
+import { addRecordInDB } from '../config/firebase/firebase';
 
 const useStore = create((set) => ({
   items: [],
-  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+  addItem: (item) =>
+  set((state) => {
+    const newItems = [...state.items, item];
+    try{
+      addRecordInDB(newItems);
+
+    }catch(e){
+      alert(JSON.stringify(e))
+    }finally{
+
+      return { items: newItems };
+    }
+  }),
   removeItem: (index) =>
     set((state) => ({
       items: state.items.filter((_, i) => i !== index),

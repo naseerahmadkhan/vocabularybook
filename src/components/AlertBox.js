@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View,ScrollView } from 'react-native';
 import { Button, Dialog, Portal, PaperProvider, Text,TextInput } from 'react-native-paper';
 import useStore from '../store/store';
-
+import { addRecordInDB } from '../config/firebase/firebase';
 
 const AlertBox = (props) => {
   
@@ -19,15 +19,14 @@ const AlertBox = (props) => {
   const add = () =>{
     let obj = {}
     if((word.length > 0) && (urdu1 == urdu2)){
-      obj = {word,urdu1,explanation}
+      obj = {word:word,urdu1:urdu1,explanation:explanation}
 
       addItem(obj)
     }else if((word.length > 0) && (urdu1 != urdu2)){
-      obj = {word,urdu1,urdu2,explanation}
+      obj = {word:word,urdu1:urdu1,urdu2:urdu2,explanation:explanation}
       addItem(obj)
 
     }
-    
     obj = {}
     props.hide()
     

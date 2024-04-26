@@ -31,14 +31,12 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
   const [text, setText] = React.useState('');
   const [translatedFromGoogle, setTranslatedFromGoogle] = React.useState('');
   const [translatedFromGoogleV, setTranslatedFromGoogleV] = React.useState('');
-
   const [wordDefinition, setWordDefinition] = React.useState('');
 
   const [showAlert,setShowAlert] = React.useState(false)
 
 
-  useEffect(()=>{
-  })
+
 
   const clearText = () => {
     setText('');
@@ -60,7 +58,6 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
   const translateFromGoogleApiVitalets = async () =>{
     const result = await translate(text, { to: 'ur' });
     setTranslatedFromGoogleV(result.text);
-
    
   }
 
@@ -95,10 +92,13 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   }
 
+
+ 
+
   if(showAlert){
     const vocabObject = {
       word:text,
-      urdu1:translatedFromGoogle,
+      urdu1:translatedFromGoogle[0],
       urdu2:translatedFromGoogleV
     }
     return <AlertBox data={vocabObject} hide={()=>setShowAlert(false)}/>
@@ -162,7 +162,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
             style={{marginBottom: 5}}
             value={translatedFromGoogle + ''}
             onChangeText={val => setTranslatedFromGoogle(val)}
-            on
+            
           />
         </View>
 
@@ -190,7 +190,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.14, justifyContent: 'center'}}>
           <TouchableRipple
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => console.log()}     //2nd copy button
+            onPress={() => setShowAlert(true)}    //2nd copy button
             rippleColor="rgba(0, 0, 0, .32)">
             <Icon source="content-copy" color={MD3Colors.neutral10} size={30} />
           </TouchableRipple>

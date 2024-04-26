@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
 
-import { loginUser } from './config/firebase/firebase';
+import { loginUser,addRecordInDB,updateRecordInDB } from './config/firebase/firebase';
 
 
   const Stack = createNativeStackNavigator();
@@ -15,6 +15,7 @@ export default function AppNavigator() {
   useEffect(()=>{
     console.log('app loading')
     loginUser();
+    // addRecordInDB();
   })
   return (
     <NavigationContainer>
