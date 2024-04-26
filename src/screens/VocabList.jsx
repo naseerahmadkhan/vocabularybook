@@ -1,14 +1,18 @@
 import { View,FlatList } from 'react-native'
 import { TouchableRipple,Text,Card,Avatar,Searchbar } from 'react-native-paper';
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import useStore from '../store/store';
 
 export default function VocabList() {
-
-    const data = ['one','two','three','four','five','six','seven','eight','nine','ten','elenvs','twelve']
+  const { items} = useStore();
+    // const data = items;
     const [searchQuery, setSearchQuery] = React.useState('');
-    const [filteredData, setFilteredData] = React.useState(data);
+    const [filteredData, setFilteredData] = React.useState(items);
     
+    useEffect(()=>{
+      console.log('vocab',items)
+      setFilteredData(items)
+    },[])
     
     //handle search that matches text from data array and return filtered data
     const handleSearch = (query) =>{
@@ -27,9 +31,9 @@ export default function VocabList() {
   >
    <View >
    <Card.Title
-    title={item}
+    title={item.word}
     titleVariant={'titleLarge'}
-    subtitle="Card Subtitle"
+    subtitle={`${item?.urdu1 || ''} ${item?.urdu2 || ''} ${item?.meaning || ''}`} 
     subtitleVariant={'bodyLarge'}
     
     left={(props) => <Avatar.Text label='Oo'  {...props} icon="code-json" color='white' style={{backgroundColor:'black'}}/>}

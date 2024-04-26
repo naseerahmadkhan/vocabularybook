@@ -1,11 +1,14 @@
 import { auth,db } from "../auth/firebase";
 import {signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc,updateDoc,collection,addDoc } from "firebase/firestore"; 
+import { doc, setDoc,updateDoc,collection,addDoc,getDocs,getDoc } from "firebase/firestore"; 
 import useStore from "../../store/store";
 
 
+
+
+
   export async function loginUser(){
-    // const auth = getAuth();
+
 signInWithEmailAndPassword(auth, 'naseer4uplus@gmail.com', 'naseer819')
   .then((userCredential) => {
     // Signed in 
@@ -61,4 +64,32 @@ updateDoc(vocabListRef, newData)
   .catch((error) => {
     console.error("Error updating document: ", error);
   });
+  }
+
+  
+  export async function getAllRecord(){
+const docRef = doc(db, "vocab", "vocablist");
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log("getting all data");
+  try{
+    const result = await docSnap.data().data
+    console.log('res',result)
+    return result
+    // initializeItems(result)
+  }catch(e){
+      console.log(e)
+  }finally{
+
+    
+  }
+  
+  
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
+
+
   }

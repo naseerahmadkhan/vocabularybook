@@ -25,6 +25,11 @@ const useStore = create((set) => ({
     set((state) => ({
       items: state.items.map((item, i) => (i === index ? updatedItem : item)),
     })),
+    initializeItems: (items) =>
+    set(() => {
+      return { items };
+    }), 
+
 }));
 
 

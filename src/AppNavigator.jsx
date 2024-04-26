@@ -5,18 +5,33 @@ import Appheader from './header/Appheader';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
-
-import { loginUser,addRecordInDB,updateRecordInDB } from './config/firebase/firebase';
+import useStore from './store/store';
+import { loginUser,addRecordInDB,updateRecordInDB,getAllRecord } from './config/firebase/firebase';
 
 
   const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
 
+  const {initializeItems,items} = useStore()
+
+  async function getData(){
+    console.log('data in app nav')
+    try{
+      let result = await getAllRecord()
+      initializeItems(result)
+    }catch(e){
+  console.log(">>>",e)
+}finally{
+}
+    
+  }
+
   useEffect(()=>{
     console.log('app loading')
-    loginUser();
+    getData();
+    // loginUser();
     // addRecordInDB();
-  })
+  },[])
   return (
     <NavigationContainer>
      <Stack.Navigator screenOptions={{

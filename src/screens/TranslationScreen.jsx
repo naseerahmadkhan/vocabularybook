@@ -34,7 +34,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
   const [wordDefinition, setWordDefinition] = React.useState('');
 
   const [showAlert,setShowAlert] = React.useState(false)
-
+  // const [showTranslationScreen, setShowTraslationScreen] = React.useState(false)
 
 
 
