@@ -10,7 +10,7 @@ export default function VocabList() {
     const [filteredData, setFilteredData] = React.useState(items);
     
     useEffect(()=>{
-      console.log('vocab',items)
+      // console.log('vocab',items)
       setFilteredData(items)
     },[items])
     

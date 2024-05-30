@@ -14,7 +14,7 @@ const AlertBox = (props) => {
   const [explanation,setExplanation] = useState('')
   const { items,addItem } = useStore();
   const [disableBtn,setDisableBtn] = useState(false)
-  
+  const [myobj,setMyobj] = useState({})
 
 
   const add = async() =>{
@@ -24,15 +24,18 @@ const AlertBox = (props) => {
       obj = {word:word,urdu1:urdu1,explanation:explanation}
 
       addItem(obj)
-      await addRecordInDB(items)
+      setMyobj(obj)
+      // await addRecordInDB(items)
     }else if((word.length > 0) && (urdu1 != urdu2)){
       obj = {word:word,urdu1:urdu1,urdu2:urdu2,explanation:explanation}
       addItem(obj)
-      await addRecordInDB(items)
+      setMyobj(obj)
+      // await addRecordInDB(items)
 
     }
+    console.log('after adding',items)
     obj = {}
-    props.hide()
+    // props.hide()
     setDisableBtn(false)
     
   }

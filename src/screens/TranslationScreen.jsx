@@ -35,6 +35,9 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   const [showAlert,setShowAlert] = React.useState(false)
   // const [showTranslationScreen, setShowTraslationScreen] = React.useState(false)
+  const {items} = useStore();
+
+  const [demoItems, setDemoItems] = React.useState()
 
 
 
@@ -43,6 +46,13 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
     setTranslatedFromGoogle('');
     setTranslatedFromGoogleV('');
   };
+
+  const hideAlert = ()=>{
+    setShowAlert(false)
+    clearText()
+    setDemoItems(items)
+    console.log('********',items,demoItems)
+  }
 
   const doTranslate = () =>{
     translateFromGoogleApi()
@@ -101,7 +111,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
       urdu1:translatedFromGoogle[0],
       urdu2:translatedFromGoogleV
     }
-    return <AlertBox data={vocabObject} hide={()=>setShowAlert(false)}/>
+    return <AlertBox data={vocabObject} hide={()=>hideAlert()}/>
   }
 
   return (
