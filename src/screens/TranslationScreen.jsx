@@ -37,9 +37,12 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
   // const [showTranslationScreen, setShowTraslationScreen] = React.useState(false)
   const {items} = useStore();
 
-  const [demoItems, setDemoItems] = React.useState()
 
 
+  const handleAlert = () =>{
+    if(translatedFromGoogle && translatedFromGoogleV)
+    setShowAlert(true)
+  }
 
   const clearText = () => {
     setText('');
@@ -49,9 +52,6 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
 
   const hideAlert = ()=>{
     setShowAlert(false)
-    clearText()
-    setDemoItems(items)
-    console.log('********',items,demoItems)
   }
 
   const doTranslate = () =>{
@@ -169,6 +169,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.86}}>
           <TextInput
             label="Translation from google"
+            disabled={true}
             style={{marginBottom: 5}}
             value={translatedFromGoogle + ''}
             onChangeText={val => setTranslatedFromGoogle(val)}
@@ -179,7 +180,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.14, justifyContent: 'center'}}>
           <TouchableRipple
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => setShowAlert(true)}  //first copy button
+            onPress={() => handleAlert()}  //first copy button
             rippleColor="rgba(0, 0, 0, .32)">
             <Icon source="content-copy" color={MD3Colors.neutral10} size={30} />
           </TouchableRipple>
@@ -190,6 +191,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.86}}>
           <TextInput
             label="Translation from google"
+            disabled={true}
             style={{marginBottom: 5}}
             value={translatedFromGoogleV + ''}
             onChangeText={val => setTranslatedFromGoogleV(val)}
@@ -200,7 +202,7 @@ LogBox.ignoreAllLogs(); //Ignore all log notifications
         <View style={{flex: 0.14, justifyContent: 'center'}}>
           <TouchableRipple
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => setShowAlert(true)}    //2nd copy button
+            onPress={() => handleAlert()}    //2nd copy button
             rippleColor="rgba(0, 0, 0, .32)">
             <Icon source="content-copy" color={MD3Colors.neutral10} size={30} />
           </TouchableRipple>

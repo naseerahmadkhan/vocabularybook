@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import * as React from 'react';
 import { View,ScrollView } from 'react-native';
 import { Button, Dialog, Portal, PaperProvider, Text,TextInput } from 'react-native-paper';
@@ -14,7 +14,11 @@ const AlertBox = (props) => {
   const [explanation,setExplanation] = useState('')
   const { items,addItem } = useStore();
   const [disableBtn,setDisableBtn] = useState(false)
-  const [myobj,setMyobj] = useState({})
+
+
+  useEffect(() => {
+    // console.log('*****Updated items:', items);
+  }, [items]);
 
 
   const add = async() =>{
@@ -22,20 +26,25 @@ const AlertBox = (props) => {
     let obj = {}
     if((word.length > 0) && (urdu1 == urdu2)){
       obj = {word:word,urdu1:urdu1,explanation:explanation}
-
-      addItem(obj)
-      setMyobj(obj)
-      // await addRecordInDB(items)
     }else if((word.length > 0) && (urdu1 != urdu2)){
       obj = {word:word,urdu1:urdu1,urdu2:urdu2,explanation:explanation}
-      addItem(obj)
-      setMyobj(obj)
-      // await addRecordInDB(items)
-
     }
-    console.log('after adding',items)
+
+    let tempList = [...items,obj]
+
+    try {
+      const result = await addRecordInDB(obj);
+      addItem(obj)
+      console.log(result); // "Successfully added" if successful
+      alert('successfully added');
+  } catch (error) {
+      console.error(error); // Error message if failed
+      alert('failed to add');
+  }
+
+    
     obj = {}
-    // props.hide()
+    props.hide()
     setDisableBtn(false)
     
   }

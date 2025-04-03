@@ -1,6 +1,6 @@
 import { auth,db } from "../auth/firebase";
 import {signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc,updateDoc,collection,addDoc,getDocs,getDoc } from "firebase/firestore"; 
+import { doc, setDoc,updateDoc,collection,addDoc,getDocs,getDoc,arrayUnion } from "firebase/firestore"; 
 import useStore from "../../store/store";
 
 
@@ -26,20 +26,22 @@ signInWithEmailAndPassword(auth, 'naseer4uplus@gmail.com', 'naseer819')
   }
 
 
-  export async function addRecordInDB(list) {
-    // Create a reference to the document "vocablist" in the "vocab" collection
-const vocabListRef = doc(db, "vocab", "vocablist");
+  export async function addRecordInDB(obj) {
+    try {
+      // Create a reference to the document "vocablist" in the "vocab" collection
+      const vocabListRef = doc(db, "vocab", "vocablist");
+      
+      // Update the existing document, adding the object to the "data" array
+      await updateDoc(vocabListRef, {
+          data: arrayUnion(obj)
+      });
 
-
-// Update the existing document with the new data
-return setDoc(vocabListRef, {data:list})
-  .then(() => {
-    console.log("Document successfully updated!");
-    alert('successfully added');
-  })
-  .catch((error) => {
-    console.error("Error updating document: ", error);
-  });
+      console.log("Document successfully updated!");
+      return "Successfully added";
+  } catch (error) {
+      console.error("Error updating document: ", error);
+      throw new Error("Failed to add record");
+  }
 }
 
 

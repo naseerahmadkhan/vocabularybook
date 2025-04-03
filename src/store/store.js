@@ -5,10 +5,9 @@ import { addRecordInDB } from '../config/firebase/firebase';
 const useStore = create((set) => ({
   items: [],
   addItem: (item) =>
-  set((state) => {
-    const newItems = [...state.items, item];
-    return { items: newItems };
-  }),
+  set((state) => ({
+    items:[...state.items,item]
+  })),
   removeItem: (index) =>
     set((state) => ({
       items: state.items.filter((_, i) => i !== index),
